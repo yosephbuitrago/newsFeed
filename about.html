@@ -1,0 +1,52 @@
+
+<!-- We don't need full layout in this file because this page will be parsed with Ajax. It is just enough to put here .navbar and .page-->
+
+<!-- Top Navbar-->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="left">
+      <a href="#" class="back link">
+        <i class="icon icon-back"></i>
+        <span>Back</span>
+       </a>
+    </div>
+    <div class="center sliding">About</div>
+    <div class="right">
+      <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+    </div>
+  </div>
+</div>
+<div class="pages">
+  <div data-page="about" class="page">
+    <div class="page-content">
+      <div class="content-block">
+        <style>
+          .demo-card-header-pic .card-header {
+            height: 40vw;
+            background-size: cover;
+            background-position: center;
+          }
+          </style>
+
+          <div class="content-block-title">News</div>
+          <ul>
+            {{#each titles}}
+              <div class="card demo-card-header-pic">
+                <div style="background-image:url(...)" valign="bottom" class="card-header color-white no-border">{{this}}</div>
+                <div class="card-content">
+                  <div class="card-content-inner">
+                    <p class="color-gray">Posted on January 21, 2015</p>
+                    <p>Quisque eget vestibulum nulla...</p>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="link">Like</a>
+                  <a href="#" class="link">Read more</a>
+                </div>
+              </div>
+            {{/each}}
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>
