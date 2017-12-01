@@ -10,14 +10,14 @@
         <span>Back</span>
        </a>
     </div>
-    <div class="center sliding">About</div>
+    <div class="center sliding">Bloomberg News</div>
     <div class="right">
       <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
     </div>
   </div>
 </div>
 <div class="pages">
-  <div data-page="about" class="page">
+  <div data-page="bloomberg" class="page">
     <div class="page-content">
       <div class="content-block">
         <style>
@@ -29,9 +29,7 @@
           }
           </style>
 
-          <div class="content-block-title">News</div>
-
-            {{#each cnn}}
+            {{#each listNews}}
 
              <div class="card demo-card-header-pic">
                <div style="background-image:url({{this.urlToImage}})" valign="bottom" class="card-header color-white  no-border"></div>
