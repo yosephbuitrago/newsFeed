@@ -1,45 +1,5 @@
 
-
-var newsAPI='https://newsapi.org/v2/top-headlines?sources=';
-var keyNewsAPI='&apiKey=955b003024764dda8ee94b4f3cb74e1e';
-var sources = ['cnn','bloomberg','engadget', 'bbc-news'];
-var listUrlSources=[];
-
-$.each(sources,function (key,val) {
-  listUrlSources.push(newsAPI+val+keyNewsAPI);
-  getNews(newsAPI+val+keyNewsAPI,val);
-});
-console.log(listUrlSources);
-
-
-var news = {
-  cnn:[],
-  bloomberg:[],
-  engadget:[],
-  'bbc-news':[]
-};
-
-function getNews(url, source) {
-  $.getJSON(url, function( data ) {
-     $.each( data.articles, function(key,val) {
-         var article ={
-           title : val.title,
-           description : val.description,
-           url: val.url,
-           urlToImage:val.urlToImage,
-           publishedAt: val.publishedAt
-         }
-         console.log("two ");
-         news[source].push(article);
-         //console.log(val.urlToImage);
-      });
-      //console.log(news);
-  });
-}
-
-
 console.log(news);
-
 // Initialize app and store it to myApp variable for futher access to its methods
 var myApp = new Framework7({
   template7Pages: true,
@@ -55,21 +15,71 @@ var myApp = new Framework7({
      },
      'url:bloomberg.html': {
        listNews : news.bloomberg
+     },
+     'url:top10.html': {
+       listNews : news.top10
+     },
+     'url:newsForm.html':{
+       user : user
      }
    }
 
 });
-console.log(news);
 
 // We need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
-// Add view
+// Add main view
 var mainView = myApp.addView('.view-main', {
   // Because we want to use dynamic navbar, we need to enable it for this view:
   dynamicNavbar: true
 });
+//add second view
 var view2 = myApp.addView('#view-2', {
     // Because we use fixed-through navbar we can enable dynamic navbar
     dynamicNavbar: true
 });
+
+myApp.onPageInit('newsForm', function (page) {
+  // Do something here for "about" page
+  $('#btnSubmit').on('click',function (e) {
+
+        var formData = myApp.formToData('#news-form');
+        alert(encodeURI(JSON.stringify(formData)));
+        var dataNews=encodeURI(JSON.stringify(formData))
+        console.log(dataNews);
+        /**$.get("http://52.48.79.163/db.php?",
+        {
+          type:'newstory',
+          data: dataNews,
+          id:user.id
+        }
+      );**/
+      view2.router.back();  
+      myApp.addNotification({
+           title: 'Successful',
+           message: 'Your article has been successfully stored on the server. Thanks!'
+       });
+    });
+
+
+
+
+
+
+
+
+  console.log("hi from form");
+
+});
+
+
+
+var one=document.getElementById('#newsFormbutton');
+console.log(one);
+$('.list-button').on('click',function () {
+  console.log('hi yoseph');
+  myApp.closeModal('.login-screen',true);
+});
+
+//console.log(user);

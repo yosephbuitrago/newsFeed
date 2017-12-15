@@ -5,25 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>My App</title>
+    <title>The News Feed App</title>
     <!-- Path to Framework7 Library CSS-->
     <link rel="stylesheet" href="css/framework7.ios.min.css">
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/my-app.css">
+    <link rel="stylesheet" href="css/framework7-icons.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="js/getNews.js"></script>
   </head>
   <body>
-   <!-- Status bar overlay for full screen mode (PhoneGap) -->
-   <div class="statusbar-overlay"></div>
-   <!-- Panels overlay-->
-   <div class="panel-overlay"></div>
-   <!-- Left panel with reveal effect-->
-   <div class="panel panel-left panel-reveal">
-     <div class="content-block">
-       <p>Left panel content goes here</p>
-     </div>
+
+  <!--   -->
+  <div id="fb-root"></div>
+  <script src="js/facebook.js"></script>
+
+    <div class="login-screen modal-in">
+      <div data-page="login-screen" class="page no-navbar no-toolbar no-swipeback">
+  <div class="page-content login-screen-content">
+    <div class="login-screen-title">The News Feed App</div>
+    <form>
+      <div class="list-block">
+        <ul>
+          <li class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">Username</div>
+              <div class="item-input">
+                <input type="text" name="username" placeholder="Your username"/>
+              </div>
+            </div>
+          </li>
+          <li class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">Password</div>
+              <div class="item-input">
+                <input type="password" name="password" placeholder="Your password"/>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="list-block">
+        <ul>
+          <li><a href="#" class="item-link list-button">Sign In</a></li>
+        </ul>
+        <div class="list-block-label">
+          <p>Click Sign In to close Login Screen</p>
+          <p>Or</p>
+
+          <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin="checkLoginState();"></div>
+          <div id="status">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
    </div>
+
    <!-- Views -->
    <div class="views tabs toolbar-through">
      <!-- Your main view, should have "view-main" class -->
@@ -33,13 +74,7 @@
          <div class="navbar-inner">
            <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
            <div class="center sliding">The news APP</div>
-           <div class="right">
-             <!--
-               Right link contains only icon - additional "icon-only" class
-               Additional "open-panel" class tells app to open panel when we click on this link
-             -->
-             <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
-           </div>
+
          </div>
        </div>
        <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
@@ -48,11 +83,8 @@
          <div data-page="index" class="page">
            <!-- Scrollable page content -->
            <div class="page-content">
-             <p>Page content goes here</p>
+             <div class="content-block-title">Select your favourite news source</div>
              <!-- Link to another page -->
-
-
-             <a href="about.html">About app</a>
              <div class="list-block">
                 <ul>
                   <li><a href="cnn.html" class="item-link" data="0">
@@ -94,45 +126,82 @@
         <!-- We can make with view with navigation, let's add Top Navbar-->
         <div class="navbar">
           <div class="navbar-inner">
-            <div class="center sliding">Second View</div>
+            <div class="center sliding">Private News Server</div>
           </div>
         </div>
         <div class="pages navbar-through">
           <div data-page="index-2" class="page">
             <div class="page-content">
               <div class="content-block">
-                <p>This is a second view. Lets, for example, have here some internal pages with navbar navigation</p>
+                <div class="content-block-title">This is your private news repository</div>
               </div>
               <div class="list-block">
                 <ul>
-                  <li><a href="about.html" class="item-link">
-                      <div class="item-content">
-                        <div class="item-inner">
-                          <div class="item-title">About Us</div>
+                    <li>
+                      <a href="newsForm.html" class="item-link">
+                        <div class="item-content">
+                          <div class="item-inner">
+                            <div class="item-title">Create a News</div>
+                          </div>
                         </div>
-                      </div></a></li>
-                  <li><a href="services.html" class="item-link">
-                      <div class="item-content">
-                        <div class="item-inner">
-                          <div class="item-title">Services</div>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="top10.html" class="item-link">
+                        <div class="item-content">
+                          <div class="item-inner">
+                            <div class="item-title">Top 10 News from Kyle</div>
+                          </div>
                         </div>
-                      </div></a></li>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="top10.html" class="item-link">
+                        <div class="item-content">
+                          <div class="item-inner">
+                            <div class="item-title">Read your news</div>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
-       <!-- Bottom Toolbar-->
-      <!-- <div class="toolbar">
-         <div class="toolbar-inner">-->
-           <!-- Toolbar links -->
-          <!-- <a href="#" class="link">Link 1</a>
-           <a href="#" class="link">Link 2</a>
+      <!-- Second view (for second wrap)-->
+     <div id="view-3" class="view tab">
+       <!-- We can make with view with navigation, let's add Top Navbar-->
+       <div class="navbar">
+         <div class="navbar-inner">
+           <div class="center sliding">JSON object</div>
          </div>
-       </div>-->
+       </div>
+       <div class="pages navbar-through">
+         <div data-page="index-2" class="page">
+           <div class="page-content">
+             <div class="content-block">
+               <div class="content-block-title">This the JSON Object that hold all the info</div>
+             </div>
+             <div class="list-block">
+               <!-- Content block -->
+               <div class="content-block">
+                   <pre>{{news}}</pre>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+
        <div class="toolbar tabbar tabbar-labels">
-        <div class="toolbar-inner"><a href="#view-1" class="tab-link active"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">Information</span></a><a href="#view-2" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Inbox</span></a><a href="#view-3" class="tab-link"> <i class="icon tabbar-demo-icon-3"><span class="badge bg-red">4</span></i><span class="tabbar-label">Upload</span></a><a href="#view-4" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Photos</span></a></div>
+        <div class="toolbar-inner">
+          <a href="#view-1" class="tab-link active"> <i class="f7-icons">book</i><span class="tabbar-label">News</span></a>
+          <a href="#view-2" class="tab-link"><i class="f7-icons">box</i><span class="tabbar-label">Pvt. Repo</span></a>
+          <a href="#view-3" class="tab-link"><i class="f7-icons">document_text_fill</i><span class="tabbar-label">JSON</span></a>
+
+
       </div>
 
 

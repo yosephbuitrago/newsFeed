@@ -11,26 +11,13 @@
        </a>
     </div>
     <div class="center sliding">BBC News</div>
-    <div class="right">
-      <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
-    </div>
   </div>
 </div>
 <div class="pages">
   <div data-page="bbc" class="page">
     <div class="page-content">
       <div class="content-block">
-        <style>
-          .demo-card-header-pic .card-header {
-            height: 40vw;
-            background-size: cover;
-            background-position: center;
-             color: red;
-          }
-          </style>
-          <div id="includedContent">
               {{#each listNews}}
-
                <div class="card demo-card-header-pic">
                  <div style="background-image:url({{this.urlToImage}})" valign="bottom" class="card-header color-white  no-border"></div>
                  <div class="card-content">
@@ -41,12 +28,11 @@
                  </div>
                  <div class="card-footer">
                    <a href="#" class="link">{{this.publishedAt}}</a>
-                   <a href="{{this.url}}" >Read more</a>
+                   <a target="_blank" href="{{this.url}}" >Read more</a>
                  </div>
                </div>
 
              {{/each}}
-          </div>
       </div>
     </div>
   </div>
