@@ -5,39 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>My App</title>
+    <title>The News Feed App</title>
     <!-- Path to Framework7 Library CSS-->
     <link rel="stylesheet" href="css/framework7.ios.min.css">
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/my-app.css">
+    <link rel="stylesheet" href="css/framework7-icons.css">
+
+      <!-- jquery JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <!-- getNews -->
+    <script src="js/getNews.js"></script>
   </head>
   <body>
-   <!-- Status bar overlay for full screen mode (PhoneGap) -->
-   <div class="statusbar-overlay"></div>
-   <!-- Panels overlay-->
-   <div class="panel-overlay"></div>
-   <!-- Left panel with reveal effect-->
-   <div class="panel panel-left panel-reveal">
-     <div class="content-block">
-       <p>Left panel content goes here</p>
-     </div>
+
+  <!-- facebook login code  -->
+  <div id="fb-root"></div>
+  <script src="js/facebook.js"></script>
+
+<!-- -------------------------- Login modal -------------------------------------- -->
+
+  <div class="login-screen modal-in">
+      <div data-page="login-screen" class="page no-navbar no-toolbar no-swipeback">
+      <div class="page-content login-screen-content">
+          <div class="login-screen-title">The News Feed App</div>
+          <form>
+            <div class="list-block">
+              <ul>
+                <li class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">Username</div>
+                    <div class="item-input">
+                      <input type="text" name="username" placeholder="Your username"/>
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">Password</div>
+                    <div class="item-input">
+                      <input type="password" name="password" placeholder="Your password"/>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="list-block">
+              <ul>
+                <li><a href="" class="item-link list-button" id="singin">Sign In</a></li>
+              </ul>
+              <div class="list-block-label">
+                <p>Click Sign In to close Login Screen</p>
+                <p>Or</p>
+                <!-- -------------------------- facebook button -------------------------------------- -->
+                <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin="checkLoginState();"></div>
+                <div id="status">
+                </div>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
    </div>
-   <!-- Views -->
-   <div class="views">
+
+   <!-- ------------------------------ index view ----------------------------------   -->
+
+   <div class="views tabs toolbar-through">
      <!-- Your main view, should have "view-main" class -->
-     <div class="view view-main">
+     <div id="view-1" class="view view-main tab active">
        <!-- Top Navbar-->
        <div class="navbar">
          <div class="navbar-inner">
            <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-           <div class="center sliding">Awesome App</div>
-           <div class="right">
-             <!--
-               Right link contains only icon - additional "icon-only" class
-               Additional "open-panel" class tells app to open panel when we click on this link
-             -->
-             <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
-           </div>
+           <div class="center sliding">The news APP</div>
          </div>
        </div>
        <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
@@ -46,40 +86,136 @@
          <div data-page="index" class="page">
            <!-- Scrollable page content -->
            <div class="page-content">
-             <p>Page content goes here</p>
+             <div class="content-block-title">Select your favourite news source</div>
              <!-- Link to another page -->
-             <a href="about.html">About app</a>
              <div class="list-block">
                 <ul>
-                  <li><a href="about.html" class="item-link" data="0">
+                  <li><a href="cnn.html" class="item-link" data="0">
                       <div class="item-content">
                         <div class="item-inner">
-                          <div class="item-title">Engadget</div>
+                          <div class="item-title">CNN</div>
                         </div>
-                      </div></a></li>
-                  <li><a href="" class="item-link" data="1">
+                      </div></a>
+                  </li>
+                  <li><a href="bloomberg.html" class="item-link" data="1">
                       <div class="item-content">
                         <div class="item-inner">
                           <div class="item-title">Bloomber</div>
                         </div>
-                      </div></a></li>
+                      </div></a>
+                  </li>
+                  <li><a href="engadget.html" class="item-link" data="1">
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title">Engadget</div>
+                        </div>
+                      </div></a>
+                  </li>
+                  <li><a href="bbc.html" class="item-link" data="1">
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title">BBC-New</div>
+                        </div>
+                      </div></a>
+                  </li>
                 </ul>
               </div>
            </div>
          </div>
        </div>
-       <!-- Bottom Toolbar-->
-       <div class="toolbar">
-         <div class="toolbar-inner">
-           <!-- Toolbar links -->
-           <a href="#" class="link">Link 1</a>
-           <a href="#" class="link">Link 2</a>
+      </div>
+
+
+       <!-- ------------------------------ Second view (private repo of news) ------------------------------- -->
+
+      <div id="view-2" class="view tab">
+        <!-- We can make with view with navigation, let's add Top Navbar-->
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="center sliding">Private News Server</div>
+          </div>
+        </div>
+        <div class="pages navbar-through">
+          <div data-page="index-2" class="page">
+            <div class="page-content">
+              <div class="content-block">
+                <div class="content-block-title">This is your private news repository</div>
+              </div>
+              <div class="list-block">
+                <ul>
+                    <li>
+                      <a href="newsForm.html" class="item-link">
+                        <div class="item-content">
+                          <div class="item-inner">
+                            <div class="item-title">Create a News</div>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="top10.html" class="item-link">
+                        <div class="item-content">
+                          <div class="item-inner">
+                            <div class="item-title">Top 10 News from Kyle</div>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="yourNews.html" class="item-link" id="myNews">
+                        <div class="item-content">
+                          <div class="item-inner">
+                            <div class="item-title">Read your news</div>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- --------------------------------the third view print the JSON object----------------------- -->
+
+     <div id="view-3" class="view tab">
+       <!-- We can make with view with navigation, let's add Top Navbar-->
+       <div class="navbar">
+         <div class="navbar-inner">
+           <div class="center sliding">JSON object</div>
+         </div>
+       </div>
+       <div class="pages navbar-through">
+         <div data-page="index-3" class="page">
+           <div class="page-content">
+             <div class="content-block">
+               <div class="content-block-title">This the JSON Object</div>
+             </div>
+             <div class="list-block">
+               <!-- Content block -->
+               <div class="content-block" id="jsonText">
+               </div>
+             </div>
+           </div>
          </div>
        </div>
      </div>
+
+  <!-- -------------------------------- footer navbar ----------------------- -->
+       <div class="toolbar tabbar tabbar-labels">
+        <div class="toolbar-inner">
+          <a href="#view-1" class="tab-link active"> <i class="f7-icons">book</i><span class="tabbar-label">News</span></a>
+          <a href="#view-2" class="tab-link"><i class="f7-icons">box</i><span class="tabbar-label">Pvt. Repo</span></a>
+          <a href="#view-3" class="tab-link" id="jsonLink"><i class="f7-icons">document_text_fill</i><span class="tabbar-label">JSON</span></a>
+          <a href="" class="tab-link" id="logOut"><i class="f7-icons">logout</i><span class="tabbar-label">LogOut</span></a>
+      </div>
+
    </div>
     <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="js/framework7.min.js"></script>
+
     <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
   </body>

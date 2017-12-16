@@ -1,0 +1,75 @@
+
+<!-- Top Navbar-->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="left">
+      <a href="#" class="back link">
+        <i class="icon icon-back"></i>
+        <span>Back</span>
+       </a>
+    </div>
+    <div class="center sliding">Create a news</div>
+  </div>
+</div>
+<div class="pages">
+  <div data-page="newsForm" class="page">
+    <div class="page-content">
+
+
+
+<div class="content-block-title">Please fill up the form</div>
+<div class="list-block inset">
+  <form id="news-form" class="list-block">
+  <ul>
+      <!-- Text inputs -->
+      <li>
+        <div class="item-content">
+          <div class="item-inner">
+            <div class="item-title label">Autor</div>
+            <div class="item-input">
+              <input type="text" value={{user.name}} name="autor" disabled>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="item-content">
+          <div class="item-inner">
+            <div class="item-title label">User ID</div>
+            <div class="item-input">
+              <input type="email" value={{user.id}} name="id" disabled>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="item-content">
+          <div class="item-inner">
+            <div class="item-title label">Title</div>
+            <div class="item-input">
+              <input type="email" placeholder="Title of the news" name="title">
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- Textarea -->
+    <li class="align-top">
+      <div class="item-content">
+        <div class="item-inner">
+          <div class="item-title label">Description</div>
+          <div class="item-input">
+            <textarea name="description"></textarea>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    </ul>
+</form>
+
+<div class="content-block">
+  <a href="" class="button" id="btnSubmit">Submit</a>
+</div>
+</div>

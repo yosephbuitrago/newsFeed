@@ -1,0 +1,26 @@
+
+<!-- Top Navbar-->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="left">
+      <a href="#" class="back link">
+        <i class="icon icon-back"></i>
+        <span>Back</span>
+       </a>
+    </div>
+    <div class="center sliding">Create a news</div>
+  </div>
+</div>
+<div class="pages">
+  <div data-page="bbc" class="page">
+    <div class="page-content">
+
+<div class="content-block-title">Top 10 News</div>
+        {{#each listNews}}
+        <div class="card">
+          <div class="card-content">
+            <div class="card-content-inner">{{this}}</div>
+          </div>
+        </div>
+        {{/each}}
+  </div>
