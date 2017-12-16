@@ -12,60 +12,64 @@
     <link rel="stylesheet" href="css/my-app.css">
     <link rel="stylesheet" href="css/framework7-icons.css">
 
+      <!-- jquery JS-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+      <!-- getNews -->
     <script src="js/getNews.js"></script>
   </head>
   <body>
 
-  <!--   -->
+  <!-- facebook login code  -->
   <div id="fb-root"></div>
   <script src="js/facebook.js"></script>
 
-    <div class="login-screen modal-in">
-      <div data-page="login-screen" class="page no-navbar no-toolbar no-swipeback">
-  <div class="page-content login-screen-content">
-    <div class="login-screen-title">The News Feed App</div>
-    <form>
-      <div class="list-block">
-        <ul>
-          <li class="item-content">
-            <div class="item-inner">
-              <div class="item-title label">Username</div>
-              <div class="item-input">
-                <input type="text" name="username" placeholder="Your username"/>
-              </div>
-            </div>
-          </li>
-          <li class="item-content">
-            <div class="item-inner">
-              <div class="item-title label">Password</div>
-              <div class="item-input">
-                <input type="password" name="password" placeholder="Your password"/>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="list-block">
-        <ul>
-          <li><a href="#" class="item-link list-button">Sign In</a></li>
-        </ul>
-        <div class="list-block-label">
-          <p>Click Sign In to close Login Screen</p>
-          <p>Or</p>
+<!-- -------------------------- Login modal -------------------------------------- -->
 
-          <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin="checkLoginState();"></div>
-          <div id="status">
-          </div>
-        </div>
+  <div class="login-screen modal-in">
+      <div data-page="login-screen" class="page no-navbar no-toolbar no-swipeback">
+      <div class="page-content login-screen-content">
+          <div class="login-screen-title">The News Feed App</div>
+          <form>
+            <div class="list-block">
+              <ul>
+                <li class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">Username</div>
+                    <div class="item-input">
+                      <input type="text" name="username" placeholder="Your username"/>
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">Password</div>
+                    <div class="item-input">
+                      <input type="password" name="password" placeholder="Your password"/>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="list-block">
+              <ul>
+                <li><a href="" class="item-link list-button" id="singin">Sign In</a></li>
+              </ul>
+              <div class="list-block-label">
+                <p>Click Sign In to close Login Screen</p>
+                <p>Or</p>
+                <!-- -------------------------- facebook button -------------------------------------- -->
+                <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin="checkLoginState();"></div>
+                <div id="status">
+                </div>
+              </div>
+            </div>
+          </form>
       </div>
-    </form>
-  </div>
-</div>
+    </div>
    </div>
 
-   <!-- Views -->
+   <!-- ------------------------------ index view ----------------------------------   -->
+
    <div class="views tabs toolbar-through">
      <!-- Your main view, should have "view-main" class -->
      <div id="view-1" class="view view-main tab active">
@@ -74,7 +78,6 @@
          <div class="navbar-inner">
            <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
            <div class="center sliding">The news APP</div>
-
          </div>
        </div>
        <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
@@ -121,7 +124,10 @@
          </div>
        </div>
       </div>
-       <!-- Second view (for second wrap)-->
+
+
+       <!-- ------------------------------ Second view (private repo of news) ------------------------------- -->
+
       <div id="view-2" class="view tab">
         <!-- We can make with view with navigation, let's add Top Navbar-->
         <div class="navbar">
@@ -156,7 +162,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="top10.html" class="item-link">
+                      <a href="yourNews.html" class="item-link" id="myNews">
                         <div class="item-content">
                           <div class="item-inner">
                             <div class="item-title">Read your news</div>
@@ -170,7 +176,10 @@
           </div>
         </div>
       </div>
-      <!-- Second view (for second wrap)-->
+
+
+      <!-- --------------------------------the third view print the JSON object----------------------- -->
+
      <div id="view-3" class="view tab">
        <!-- We can make with view with navigation, let's add Top Navbar-->
        <div class="navbar">
@@ -179,15 +188,14 @@
          </div>
        </div>
        <div class="pages navbar-through">
-         <div data-page="index-2" class="page">
+         <div data-page="index-3" class="page">
            <div class="page-content">
              <div class="content-block">
-               <div class="content-block-title">This the JSON Object that hold all the info</div>
+               <div class="content-block-title">This the JSON Object</div>
              </div>
              <div class="list-block">
                <!-- Content block -->
-               <div class="content-block">
-                   <pre>{{news}}</pre>
+               <div class="content-block" id="jsonText">
                </div>
              </div>
            </div>
@@ -195,16 +203,14 @@
        </div>
      </div>
 
+  <!-- -------------------------------- footer navbar ----------------------- -->
        <div class="toolbar tabbar tabbar-labels">
         <div class="toolbar-inner">
           <a href="#view-1" class="tab-link active"> <i class="f7-icons">book</i><span class="tabbar-label">News</span></a>
           <a href="#view-2" class="tab-link"><i class="f7-icons">box</i><span class="tabbar-label">Pvt. Repo</span></a>
-          <a href="#view-3" class="tab-link"><i class="f7-icons">document_text_fill</i><span class="tabbar-label">JSON</span></a>
-
-
+          <a href="#view-3" class="tab-link" id="jsonLink"><i class="f7-icons">document_text_fill</i><span class="tabbar-label">JSON</span></a>
+          <a href="" class="tab-link" id="logOut"><i class="f7-icons">logout</i><span class="tabbar-label">LogOut</span></a>
       </div>
-
-
 
    </div>
     <!-- Path to Framework7 Library JS-->
